@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import "./EmployeeList.css";
-import axios from "axios";
-
-const client = axios.create({
-  baseURL: "http://localhost:8080/api/v1/employee",
-});
+import client from '../AxiosCilent';
 
 export default function EmployeeList() {
   const [employees, setEmployees] = useState([]);
@@ -18,7 +13,6 @@ export default function EmployeeList() {
 
   return (
     <div>
-      <Navbar />
       <div className="container">
         <h1 className="text-center topic">Employee List</h1>
         <div className="row">
