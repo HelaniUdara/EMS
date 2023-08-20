@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./EmployeeList.css";
-import client from '../AxiosCilent';
+import client from "../AxiosCilent";
+import { useNavigate } from "react-router-dom";
 
 export default function EmployeeList() {
   const [employees, setEmployees] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     client.get("/getAllEmployees").then((response) => {
@@ -11,10 +13,38 @@ export default function EmployeeList() {
     });
   }, []);
 
+  const editEmployeeById = (id) => {
+    navigate(`/updateEmployee/${id}`);
+  };
+
+  const navigateAddEmployee = () => {
+    navigate("/addEmployee");
+  };
+
+  const deleteEmployee = (id) => {
+    client.delete(`/deleteEmployee/${id}`).then(() => 
+    {
+         alert("Employee Successfully Deleted !");
+         window.location.reload(true);
+    }
+    ).catch(() => {
+        alert("Employee Deleting Failed !");
+    })
+  }
+
   return (
     <div>
       <div className="container">
         <h1 className="text-center topic">Employee List</h1>
+        <div className="row">
+          <button
+            type="button"
+            class="btn btn-info"
+            onClick={navigateAddEmployee}
+          >
+            Add Employee
+          </button>
+        </div>
         <div className="row">
           <table className="table table-bordered table-striped">
             <thead>
@@ -35,7 +65,16 @@ export default function EmployeeList() {
                   <td>{employee.empEmail}</td>
                   <td>{employee.empAddress}</td>
                   <td>{employee.empPhone}</td>
-                  <td></td>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-primary aletbtn"
+                      onClick={() => editEmployeeById(employee.empId)}
+                    >
+                      Update
+                    </button>
+                    <button type="button" class="btn btn-danger" onClick={() => deleteEmployee(employee.empId)}>Delete</button>
+                  </td>
                 </tr>
               ))}
             </tbody>

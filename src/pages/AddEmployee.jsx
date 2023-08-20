@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import client from '../AxiosCilent';
-
+import { useNavigate } from "react-router-dom";
 
 export default function AddEmployee() {
   const [empFirstName, setEmpFirstName] = useState("");
@@ -8,6 +8,7 @@ export default function AddEmployee() {
   const [empAddress, setEmpAddress] = useState("");
   const [empEmail, setEmpEmail] = useState("");
   const [empPhone, setEmpPhone] = useState("");
+  const navigate = useNavigate();
 
   const addEmployee = () => {
     client
@@ -21,6 +22,7 @@ export default function AddEmployee() {
       .then(() => {
         alert("Student Successfully Added !");
         clearTexts();
+        navigateEmployeeList();
       })
       .catch(() => {
         alert("Student Adding Failed !");
@@ -33,6 +35,10 @@ export default function AddEmployee() {
     setEmpAddress("");
     setEmpEmail("");
     setEmpPhone("");
+  };
+
+  const navigateEmployeeList = () => {
+    navigate("/");
   };
 
   return (

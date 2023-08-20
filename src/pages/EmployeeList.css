@@ -25,3 +25,11 @@ form{
     width: 20%;
     margin: .8rem;
 }   
+
+table{
+    margin-top: 1rem;
+}
+
+.aletbtn{
+    margin: 0 1rem;
+}
